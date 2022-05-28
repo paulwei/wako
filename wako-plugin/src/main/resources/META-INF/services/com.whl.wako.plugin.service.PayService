@@ -1,0 +1,2 @@
+com.whl.wako.plugin.service.impl.AlipayService
+com.whl.wako.plugin.service.impl.WeixinpayService

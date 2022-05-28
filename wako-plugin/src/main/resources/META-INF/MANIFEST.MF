@@ -1,0 +1,7 @@
+plugin.class=org.pf4j.demo.welcome.WelcomePlugin
+plugin.id=welcome-plugin
+plugin.version=0.0.1
+plugin.requires=1.0.0
+plugin.dependencies=x, y, z
+plugin.description=My example plugin
+plugin.provider=Decebal Suiu
