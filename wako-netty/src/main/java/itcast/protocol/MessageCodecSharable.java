@@ -1,10 +1,10 @@
 package itcast.protocol;
 
-import cn.itcast.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
+import itcast.message.Message;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayInputStream;

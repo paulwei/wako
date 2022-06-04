@@ -1,7 +1,5 @@
 package itcast.server;
 
-import cn.itcast.protocol.MessageCodecSharable;
-import cn.itcast.protocol.ProcotolFrameDecoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -10,6 +8,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import itcast.protocol.MessageCodecSharable;
+import itcast.protocol.ProcotolFrameDecoder;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
