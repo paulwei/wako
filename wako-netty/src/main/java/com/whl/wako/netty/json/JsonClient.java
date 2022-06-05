@@ -6,12 +6,11 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
 
 public class JsonClient {
-    static String content = "中华人民共和国阿斯顿发送到发送到发送到发撒的发送到发送到发送到的非官方的恢复规划发的规划梵蒂冈";
+    static String content = "中华人民共和国阿斯顿发送";
 
     private int serverPort; //端口号
     private String serverIp; //服务器端ip地址
@@ -48,7 +47,7 @@ public class JsonClient {
                 //初始化客户端channel
                 protected void initChannel(SocketChannel ch) throws Exception {
                     // 客户端channel流水线添加2个handler处理器
-                    ch.pipeline().addLast(new LengthFieldPrepender(4));
+//                    ch.pipeline().addLast(new LengthFieldPrepender(4));
                     ch.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
                 }
             });

@@ -1,11 +1,14 @@
 package com.whl.wako.netty.json;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.util.CharsetUtil;
@@ -52,7 +55,13 @@ public class JsonServer {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     //pipeline管离子通道channel中的handler
                     //向子channel流水线添加3个handler处理器
-                    ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(2048, 0, 4, 0, 4));
+//                    ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(2048, 0, 4, 0, 4));
+
+                    ByteBuf delemiter= Unpooled.buffer();
+                    byte[] bytes = new byte[3];
+                    delemiter.writeBytes(bytes);
+                    ch.pipeline().addLast(new DelimiterBasedFrameDecoder(5000, true,true, delemiter));
+
                     ch.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
                     ch.pipeline().addLast(new JsonMsgDecoder());
                 }
