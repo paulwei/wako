@@ -61,7 +61,6 @@ public class JsonServer {
                     byte[] bytes = new byte[3];
                     delemiter.writeBytes(bytes);
                     ch.pipeline().addLast(new DelimiterBasedFrameDecoder(5000, true,true, delemiter));
-
                     ch.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
                     ch.pipeline().addLast(new JsonMsgDecoder());
                 }

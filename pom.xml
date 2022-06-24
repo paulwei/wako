@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>wako-netty</module>
+        <module>wako-design-pattern</module>
     </modules>
     <parent>
 		<groupId>org.springframework.boot</groupId>
