@@ -6,6 +6,7 @@
     <modules>
         <module>wako-netty</module>
         <module>wako-design-pattern</module>
+        <module>wako-code-generate</module>
     </modules>
     <parent>
 		<groupId>org.springframework.boot</groupId>
