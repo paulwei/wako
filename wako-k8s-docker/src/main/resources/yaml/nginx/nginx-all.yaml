@@ -1,0 +1,62 @@
+# 1: Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-headless
+  namespace: infra
+  labels:
+    app: nginx
+spec:
+  ports:
+    - port: 80
+      name: web
+  clusterIP: None   #注意此处的值,None表示无头服务
+  selector:
+    app: nginx
+# 2:  StorageClass
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: infra-nfs-nginx
+  namespace: infra
+provisioner: fuseim.pri/ifs #其中的provisioner: fuseim.pri/ifs与deployment中env的PROVISIONER_NAME对应
+parameters:
+  archiveOnDelete: "false"
+# 3:  StatefulSet pod
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+  namespace: infra
+spec:
+  serviceName: "nginx"
+  replicas: 3  #两个副本
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: ikubernetes/myapp:v1
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: www
+              mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+    - metadata:
+        name: www
+        annotations:
+          volume.beta.kubernetes.io/storage-class: "infra-nfs-nginx"   #infra-nfs-nginx为我们创建的storage-class名称
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
