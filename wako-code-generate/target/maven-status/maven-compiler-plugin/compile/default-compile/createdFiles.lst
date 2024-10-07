@@ -1,0 +1,5 @@
+com\whl\wako\code\generator\CodeGenerator.class
+com\whl\wako\code\generator\CommentPlugin.class
+com\whl\wako\code\generator\GeneratorConstant.class
+com\whl\wako\code\generator\MapperPlugin.class
+com\whl\wako\code\generator\LombokPlugin.class

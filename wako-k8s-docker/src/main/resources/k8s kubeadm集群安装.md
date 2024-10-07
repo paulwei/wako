@@ -22,8 +22,8 @@ hostnamectl set-hostname k8s_master
 #hostnamectl set-hostname k8s_node1
 # 在master添加hosts
 cat >>/etc/hosts <<EOF
-10.199.215.12 k8s_master
-10.199.215.181 k8s_node1
+192.168.1.10 k8s_master
+192.168.1.11 k8s_node1
 EOF
 # 将桥接的IPv4流量传递到iptables的链
 cat >/etc/sysctl.d/k8s.conf <<EOF
@@ -50,17 +50,17 @@ ntpdate time.windows.com
 ##群内节点SSH登录免密
 ##登录k8s-master
 ssh-keygen -t rsa
-ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.199.215.181
-ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.199.215.183
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.1.11
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.1.12
 ##登录k8s-node1
 ssh-keygen -t rsa
-ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.199.215.12
-ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.199.215.183
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.1.10
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.1.12
 
 ##登录k8s-node2
 ssh-keygen -t rsa
-ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.199.215.12
-ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.199.215.181
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.1.10
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.1.11
 
 ##安装Docker
 ```
@@ -166,7 +166,7 @@ done
 docker login --username=大林小莉2021 registry.cn-hangzhou.aliyuncs.com #Paul省份
 
 kubeadm init \
-  --apiserver-advertise-address=10.199.215.12 \
+  --apiserver-advertise-address=192.168.1.10 \
   --image-repository registry.aliyuncs.com/google_containers \
   --kubernetes-version v1.18.0 \
   --service-cidr=10.96.0.0/12 \
@@ -192,8 +192,8 @@ k8s-m1   NotReady   master   47m   v1.18.0
 ```
 ## kubeadm token node集群其它机器,join后kubelet才能启动
 ```shell script
-kubeadm join 10.199.215.12:6443 --token f9cvht.o3pyvsy9tr7vaggh \
-    --discovery-token-ca-cert-hash sha256:3867fbf2f65c6cea85a6f8a5e332bc47dc025b1141d05df40c5a19bd1cc17567
+kubeadm join 192.168.1.10:6443 --token xv1c3z.n5u9btwjwvtvogi8 \
+    --discovery-token-ca-cert-hash sha256:df4fdc148facfba046df7dca895fb0c4a389e330348e97ab448f1e1ef3235b38
 ```
 ##部署CNI网络插件使用的是一个名叫 CNI 的通用接口，它也是当前容器网络的事实标准，市面上的所有容器网络开源项目都可以通过 CNI 接入 Kubernetes，比如 Flannel、Calico、Canal、Romana 等等，它们的部署方式也都是类似的“一键部署”
 ```
@@ -208,8 +208,8 @@ kube-flannel-ds-amd64-2pc95   1/1     Running   0          72s
 ##命令
 kubectl get cs
 kubectl get nodes
-scp -r  /root/.kube/config root@10.199.215.181:/root/.kube/
-scp -r  /root/.kube/config root@10.199.215.183:/root/.kube/
+scp -r  /root/.kube/config root@192.168.1.11:/root/.kube/
+scp -r  /root/.kube/config root@192.168.1.12:/root/.kube/
 ##k8s-n1 not ready 用 kubectl describe node master 或  kubectl get pods -n kube-system
 
 kubectl describe node k8s-n1

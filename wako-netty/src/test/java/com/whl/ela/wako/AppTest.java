@@ -1,4 +1,4 @@
-package com.whl.ela.wako;
+package com.whl.wako;
 
 import static org.junit.Assert.assertTrue;
 

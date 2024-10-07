@@ -10,8 +10,10 @@ $ systemctl enable nfs && systemctl start nfs
 
 #分别在各slave节点上安装nfs客户端
 $ yum -y install nfs-utils rpcbind
+$ systemctl enable rpcbind && systemctl start rpcbind
+$ systemctl enable nfs && systemctl start nfs
 $ mkdir /nfsdata
 #验证挂载
-$ mount -t nfs 10.199.210.66:/data/k8s /nfsdata
+$ mount -t nfs 192.168.1.100:/data/k8s /nfsdata
 
  
