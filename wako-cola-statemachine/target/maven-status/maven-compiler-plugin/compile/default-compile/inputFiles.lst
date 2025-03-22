@@ -1,0 +1,6 @@
+I:\workspace\wako\wako-cola-statemachine\src\main\java\com\whl\wako\statemachine\config\StateMachineRegister.java
+I:\workspace\wako\wako-cola-statemachine\src\main\java\com\whl\wako\statemachine\service\OrderService.java
+I:\workspace\wako\wako-cola-statemachine\src\main\java\com\whl\wako\statemachine\enums\OrderEvent.java
+I:\workspace\wako\wako-cola-statemachine\src\main\java\com\whl\wako\statemachine\dao\repository\OrderRepository.java
+I:\workspace\wako\wako-cola-statemachine\src\main\java\com\whl\wako\statemachine\enums\OrderStatus.java
+I:\workspace\wako\wako-cola-statemachine\src\main\java\com\whl\wako\statemachine\dao\entity\Order.java
